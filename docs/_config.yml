@@ -22,7 +22,7 @@ title: Chitie
 email: ngynvuloc@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Expense tracking telegram bot
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/chitie" # the subpath of your site, e.g. /blog
 # url: "https://chitie.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 # domain: "chitie.github.io"
 
