@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Holand{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row" id="app" v-scope @vue:mounted="renderChart()">
+	{% raw %}
+	<div class="one-half column" style="margin-top: 10%">
+		<a :href="viewDetailUrl"><h3>Total: {{ total.toLocaleString("en-US") }}</h3></a>
+		<canvas id="myChart" width="400" height="400"></canvas>
+	</div>
+	{% endraw %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="module">
+  import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es.js?module'
+   createApp({
+		chartel: document.getElementById('myChart').getContext('2d'),
+		expenseByCate: {{chartdata|safe}},
+		viewDetailUrl: '{{view_detail_url|safe}}',
+		total: 0,
+		renderChart() {
+			console.log(this.viewDetailUrl)
+			var labels = []
+			var datasets = []
+			this.total = 0
+			for (var elem in this.expenseByCate) {
+				labels.push(elem)
+				datasets.push(this.expenseByCate[elem])
+				this.total += this.expenseByCate[elem]
+			}
+			new Chart(this.chartel, {
+					type: 'doughnut',
+					data: {
+						labels: labels,
+						datasets: [{
+							label: 'Expense by categories',
+							data: datasets,
+							backgroundColor: [
+								'rgb(255, 99, 132)',
+								'rgb(54, 162, 235)',
+								'rgb(255, 205, 86)'
+							],
+							hoverOffset: 4
+						}]
+					}
+			})
+		}}).mount()
+</script>
+<script>
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Install dependencies"
+          command: |
+            echo $CIRCLE_SHA1
+            docker build -t $DOCKER_REPOSITORY:latest --build-arg TIMEZONE=$TIMEZONE .
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $DOCKER_REPOSITORY:latest
+      - run:
+          name: "Deploy on remote server"
+          command: "ssh -oStrictHostKeyChecking=no -v $USER@$REMOTE_HOST $DEPLOY_SCRIPT"
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - main

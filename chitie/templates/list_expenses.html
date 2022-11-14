@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Expenses{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row" >
+		<div class="one-half column" style="margin-top: 5%">
+			<a href="{{ url_for('web.index') }}">Home</a>
+		</div>
+</div>
+<div class="row" id="app" v-scope @vue:mounted="renderTable()">
+	<div class="one-half column" style="margin-top: 5%">
+		<table class="u-full-width">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Category/Subject</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% raw %}
+				<tr v-for="item in data">
+					<td>{{ item.fcreated_at }}</td>
+					<td>
+						<a :href="'/expenses/' + item.id">{{ item.category_name }}</a>
+						<br/>
+						<small> &gt; {{ item.subject }}</small></td>
+					<td style='text-align:right;'>{{ item.amount.toLocaleString("en-US") }}</td>
+				</tr>
+				{% endraw %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type='module'>
+  import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es.js?module'
+	createApp({
+		data: {{ expenses|safe }},
+
+		renderTable() {
+			for (let i = 0; i < this.data.length; i++) {
+				var d = new Date(this.data[i]['created_at'])
+				this.data[i]['fcreated_at'] = d.getDate() + '-' + (d.getMonth()+1) + '-' + d.getYear()
+			}
+		}
+	}).mount()
+</script>
+{% endblock %}

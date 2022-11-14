@@ -1,0 +1,31 @@
+{
+	"add": "Thêm mới",
+	"edit": "Cập nhập",
+
+	"limitation": "Hạn mức",
+	"list": "Hiển thị",
+	"spending.category": "Danh mục chi tiêu",
+	"setup": "Thiết lập",
+
+
+	"telegram_bot.authentication_failed": "Bạn không có quyền ❗",
+
+	"telegram_bot.callbackquery.edit_spending_category_promp_1": "Chọn thư danh mục sau",
+	"telegram_bot.callbackquery.edit_spending_category_promp_2": "Tên hiển thị",
+	"telegram_bot.callbackquery.edit_spending_category_promp_3": "Hạn mức chi tiêu trong tháng",
+
+	"telegram_bot.callbackquery.add_spending_category_promp_1": "Tên",
+	"telegram_bot.callbackquery.add_spending_category_promp_2": "Tên hiển thị",
+	"telegram_bot.callbackquery.add_spending_category_promp_3": "Hạn mức chi tiêu trong tháng",
+
+	"telegram_bot.callbackquery.setup_spending_log_chatgroup": "Group chat ghi nhận chi tiêu",
+
+	"telegram_bot.command.help.desc_init_slg": "Đăng ký group chat ghi nhận chi tiêu",
+	"telegram_bot.command.help.desc_tm": "Tóm tắt chi tiêu trong tháng",
+	"telegram_bot.command.init_spending_log_group.success": "✔ Thiết lập thành công",
+
+	"telegram_bot.group_chat.spending_log.error_wrong_format": "❌ Sai cú pháp hoặc nhầm group rồi",
+
+	"telegram_bot.workflow.income_input.prompt_1": "Cú pháp <nội dung> <số tiền>"
+
+}

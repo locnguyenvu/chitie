@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}{{expense.id}}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row" >
+		<div class="one-half column" style="margin-top: 5%">
+			<a href="{{ url_for('web.index') }}">Home</a> &gt;
+			<a href="{{ url_for('web.list_expenses') }}">Expenses</a>
+		</div>
+</div>
+<div class="row" id="app">
+	<div class="one-half column" style="margin-top: 5%">
+		<ul class="error" style="color:red;">
+			{% for err in errors %}
+			<li>{{ err }}</li>
+			{% endfor %}
+		</ul>
+		<form method="POST" action="{{ url_for('web.detail_expense', expense_id=expense.id) }}">
+			<div class="row">
+				<div class="six columns">
+					<label for="expenseSubject">Subject</label>
+					<input class="u-full-width" type="text" id="expenseSubject" name="subject" value="{{expense.subject}}">
+				</div>
+				<div class="six columns">
+					<label for="expenseAmount">Amount</label>
+					<input class="u-full-width" type="text" id="expenseAmount" name="amount" value="{{expense.amount}}">
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="expenseCategory">Category</label>
+					<select class="u-full-width" id="expenseCategory" name="category_id">
+						{% for cate in categories %}
+						<option value="{{ cate.id }}" {{ "selected" if cate.id == expense.category_id }}>{{ cate.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="six columns">
+					<label>Transaction type</label>
+					<label for="transactionCredit">
+						<span class="label-body">
+							<input type="radio" id="transactionCredit" name="transaction_type" value="credit" {{ "checked" if 'credit' == expense.transaction_type }}>
+							Credit
+						</span>
+					</label>
+					<label for="transactionDebit">
+						<span class="label-body">
+							<input type="radio" id="transactionDebit" name="transaction_type" value="debit" {{ "checked" if 'debit' == expense.transaction_type }}>
+							Debit
+						</span>
+					</label>
+				</div>
+			</div>
+			<input class="button-primary" type="submit" value="Submit">
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
