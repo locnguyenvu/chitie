@@ -1,6 +1,5 @@
 import sqlalchemy as sa
 
-from click import echo
 from chitie.db import connection, ActiveRecord
 
 
@@ -11,6 +10,7 @@ class Category(connection.Model, ActiveRecord):
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
     is_active = sa.Column(sa.Boolean, nullable=False)
+    telegram_chat_id = sa.Column(sa.BigInteger(), nullable=False)
     created_at = sa.Column(sa.DateTime, nullable=True)
     updated_at = sa.Column(sa.DateTime, nullable=True)
 
@@ -18,17 +18,11 @@ class Category(connection.Model, ActiveRecord):
         self.name = name
         self.is_active = True
 
-
-def add(name: str):
-    existed = Category.query.filter_by(name=name).first()
-    if existed is not None:
-        echo('[!] Error - This category has already existed')
-        return
-    cat = Category(name)
-    cat.save()
-    return cat
-
-
-def list():
-    rows = Category.query.filter_by(is_active=True).order_by(Category.id).all()
-    return rows
+    @classmethod
+    def find(cls, chat_id, **kwargs):
+        query = cls.query.filter_by(telegram_chat_id=chat_id)
+        for key, value in kwargs.items():
+            if not hasattr(cls, key):
+                continue
+            query = query.filter(getattr(cls, key) == value)
+        return query.order_by(cls.name.asc()).all()

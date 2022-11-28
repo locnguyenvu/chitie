@@ -2,7 +2,7 @@ from click import Command
 from flask import Flask
 from flask.cli import with_appcontext
 
-from .bot import bot
+from .telegram import bot
 
 
 def bot_set_commands():
