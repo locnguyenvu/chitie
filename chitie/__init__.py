@@ -16,8 +16,8 @@ def create_app():
     app.config['LOCALE'] = os.getenv("LOCALE", "vi_VN")
     app.config['PREFERRED_URL_SCHEME'] = os.getenv('PREFERRED_URL_SCHEME', 'https')
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "dev")
-    app.config['SERVER_NAME'] = os.getenv('SERVER_NAME')
     app.config['SESSION_COOKIE_DOMAIN'] = os.getenv('SERVER_NAME')
+    app.config['SERVER_NAME'] = os.getenv('SERVER_NAME')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     # Telegram config
@@ -25,10 +25,10 @@ def create_app():
     app.config['TELEGRAM_WEBHOOK_SECRET'] = os.getenv("TELEGRAM_WEBHOOK_SECRET")
 
     with app.app_context():
-        from . import db, bot, config, web, cli
+        from . import db, telegram, config, web, cli
         db.init_app(app)
         config.load(app)
-        bot.init_app(app)
+        telegram.init_app(app)
         web.init_app(app)
         cli.init_app(app)
 

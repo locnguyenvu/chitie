@@ -37,11 +37,11 @@ def upgrade() -> None:
     )
 
     op.create_table(
-        "bot_chatcontexts",
+        "telegram_chatcontexts",
         sa.Column("id", sa.Integer(), primary_key=True, autoincrement=True),
         sa.Column("user_id", sa.BigInteger(), nullable=False),
         sa.Column("chat_id", sa.BigInteger(), nullable=False),
-        sa.Column("serialized_handler", sa.JSON, nullable=False),
+        sa.Column("callbackdata", sa.Text(), nullable=False),
         sa.Column("is_active", sa.Boolean, server_default=sa.text('true')),
         sa.Column("created_at", sa.DateTime, server_default=sa.text('NOW()'), index=True),
     )
@@ -51,6 +51,8 @@ def upgrade() -> None:
         sa.Column("id", sa.Integer(), primary_key=True, autoincrement=True),
         sa.Column("name", sa.String(), unique=True),
         sa.Column("is_active", sa.Boolean, server_default=sa.text('true')),
+        sa.Column("is_deleted", sa.Boolean, server_default=sa.text('false')),
+        sa.Column("telegram_chat_id", sa.BigInteger(), nullable=False),
         sa.Column("created_at", sa.DateTime, server_default=sa.text('NOW()'), index=True),
         sa.Column("updated_at", sa.DateTime, server_default=sa.text('NOW()'))
     )
@@ -74,7 +76,7 @@ def upgrade() -> None:
 def downgrade() -> None:
     op.drop_table("configs")
     op.drop_table("users")
-    op.drop_table("bot_chatcontexts")
+    op.drop_table("telegram_chatcontexts")
     op.drop_table("expense_categories")
     op.drop_index("trgm_idx_expense_items_subject")
     op.drop_table("expense_items")

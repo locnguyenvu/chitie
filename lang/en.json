@@ -1,7 +1,12 @@
 {
-    "setup done": "Setup done ✔",
+    "activate": "Activate",
+    "add": "➕ Add",
+    "back": "🔙 Back",
+    "close": "✖️Close",
+    "deactivate": "Deactivate",
+    "edit name": "Edit name",
     "invalid format": "Invalid format",
     "select category": "Select category",
-    "add": "➕ Add",
-    "close": "✖️Close",
+    "setup done": "Setup done ✔",
+    "update success": "Update success!"
 }

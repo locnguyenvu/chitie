@@ -7,6 +7,8 @@ from chitie.db import connection, ActiveRecord
 
 class Config(connection.Model, ActiveRecord):
 
+    INTVALUE = ['bot.group_id']
+
     __tablename__ = "configs"
 
     id = sa.Column(sa.Integer, primary_key=True)
