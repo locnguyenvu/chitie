@@ -1,4 +1,4 @@
-# 🤖chitie
+# 🤖chitieaaa
 
 Chitie stands for `chi tiết` & `chi tiêu` in Vietnamese it means detail on your expenses. 
 
